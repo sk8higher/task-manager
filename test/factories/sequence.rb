@@ -7,5 +7,5 @@ FactoryBot.define do
     "person#{n}@example.com"
   end
 
-  sequence :type, %w[Admin Developer Manager].cycle
+  sequence :type, ['Admin', 'Developer', 'Manager'].cycle
 end
