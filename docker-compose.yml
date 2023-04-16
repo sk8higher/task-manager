@@ -2,6 +2,7 @@ version: '3.7'
 
 services:
   web:
+    user: "${UID}:${GID}"
     build: .
     volumes: &web-volumes
       - &app-volume .:/task_manager:cached
