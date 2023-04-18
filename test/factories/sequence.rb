@@ -6,6 +6,4 @@ FactoryBot.define do
   sequence :email do |n|
     "person#{n}@example.com"
   end
-
-  sequence :type, ['Admin', 'Developer', 'Manager'].cycle
 end
