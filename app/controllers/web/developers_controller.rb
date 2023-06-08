@@ -17,6 +17,6 @@ class Web::DevelopersController < Web::ApplicationController
   private
 
   def developer_params
-    params.require(:developer).permit(:first_name, :last_name, :password, :password_confirmation)
+    params.require(:developer).permit(:first_name, :last_name, :password, :email, :password_confirmation)
   end
 end
