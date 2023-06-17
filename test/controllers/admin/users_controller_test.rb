@@ -1,5 +1,4 @@
 require 'test_helper'
-include AuthHelper
 
 class Admin::UsersControllerTest < ActionController::TestCase
   test 'should get show' do
