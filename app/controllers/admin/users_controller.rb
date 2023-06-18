@@ -20,9 +20,9 @@ class Admin::UsersController < Admin::ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to admin_users_url
+      redirect_to(admin_users_url)
     else
-      render :new_admin_user_url
+      render(:new_admin_user_url)
     end
   end
 
@@ -30,9 +30,9 @@ class Admin::UsersController < Admin::ApplicationController
     @user = User.find(params[:id])
 
     if @user.update(user_params)
-      redirect_to admin_users_url
+      redirect_to(admin_users_url)
     else
-      render :edit
+      render(:edit)
     end
   end
 
