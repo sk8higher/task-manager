@@ -1,3 +1,5 @@
 class Web::BoardsController < Web::ApplicationController
-  def show; end
+  def show
+    render react_component: 'TaskBoard', props: {}
+  end
 end
