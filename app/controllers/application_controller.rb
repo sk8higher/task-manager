@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
   include AuthHelper
 
-  before_action :authenticate_user!, except: [:new, :create]
+  before_action :authenticate_user!
 end
