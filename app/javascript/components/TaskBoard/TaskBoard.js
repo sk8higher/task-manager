@@ -52,7 +52,10 @@ function TaskBoard() {
     loadColumn(state, page, perPage).then(({ data }) => {
       setBoardCards((prevState) => ({
         ...prevState,
-        [state]: { cards: [...prevState[state].cards, ...data.items], meta: data.meta },
+        [state]: {
+          cards: [...prevState[state].cards, ...data.items],
+          meta: data.meta,
+        },
       }));
     });
   };
