@@ -18,6 +18,8 @@ function ColumnHeader({ column, onLoadMore }) {
 
   const count = cards.length;
 
+  const canLoadMoreCards = count < totalCount;
+
   const handleLoadMore = () => onLoadMore(id, currentPage + 1);
 
   return (
@@ -25,11 +27,13 @@ function ColumnHeader({ column, onLoadMore }) {
       <div className={styles.title}>
         <b>{title}</b> ({count}/{totalCount || '...'})
       </div>
-      <div className={styles.actions}>
-        <IconButton aria-label="Load more" onClick={() => handleLoadMore()}>
-          <SystemUpdateAltIcon fontSize="small" />
-        </IconButton>
-      </div>
+      {canLoadMoreCards && (
+        <div className={styles.actions}>
+          <IconButton aria-label="Load more" onClick={() => handleLoadMore()}>
+            <SystemUpdateAltIcon fontSize="small" />
+          </IconButton>
+        </div>
+      )}
     </div>
   );
 }
