@@ -7,6 +7,11 @@ import TasksRepository from 'repositories/TasksRepository';
 
 import ColumnHeader from 'components/ColumnHeader';
 
+import useStyles from './useStyles';
+
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+
 const STATES = [
   { key: 'new_task', value: 'New' },
   { key: 'in_development', value: 'In Dev' },
@@ -27,6 +32,8 @@ const initialBoard = {
 };
 
 function TaskBoard() {
+  const styles = useStyles();
+
   const [board, setBoard] = useState(initialBoard);
   const [boardCards, setBoardCards] = useState([]);
   useEffect(() => loadBoard(), []);
@@ -97,13 +104,18 @@ function TaskBoard() {
   };
 
   return (
-    <KanbanBoard
-      renderCard={(card) => <Task task={card} />}
-      renderColumnHeader={(column) => <ColumnHeader column={column} onLoadMore={loadColumnMore} />}
-      onCardDragEnd={handleCardDragEnd}
-    >
-      {board}
-    </KanbanBoard>
+    <>
+      <Fab className={styles.addButton} color="primary" aria-label="add">
+        <AddIcon />
+      </Fab>
+      <KanbanBoard
+        renderCard={(card) => <Task task={card} />}
+        renderColumnHeader={(column) => <ColumnHeader column={column} onLoadMore={loadColumnMore} />}
+        onCardDragEnd={handleCardDragEnd}
+      >
+        {board}
+      </KanbanBoard>
+    </>
   );
 }
 
