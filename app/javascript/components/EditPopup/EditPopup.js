@@ -12,7 +12,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 
-import Form from './components/Form';
+import Form from './Form';
 
 import useStyles from './useStyles';
 
