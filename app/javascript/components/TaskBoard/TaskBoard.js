@@ -6,6 +6,9 @@ import Task from 'components/Task';
 import TasksRepository from 'repositories/TasksRepository';
 
 import ColumnHeader from 'components/ColumnHeader';
+import AddPopup from 'components/AddPopup';
+
+import TaskForm from 'forms/TaskForm';
 
 import useStyles from './useStyles';
 
@@ -22,6 +25,11 @@ const STATES = [
   { key: 'archived', value: 'Archived' },
 ];
 
+const MODES = {
+  ADD: 'add',
+  NONE: 'none',
+};
+
 const initialBoard = {
   columns: STATES.map((column) => ({
     id: column.key,
@@ -36,6 +44,7 @@ function TaskBoard() {
 
   const [board, setBoard] = useState(initialBoard);
   const [boardCards, setBoardCards] = useState([]);
+  const [mode, setMode] = useState(MODES.NONE);
   useEffect(() => loadBoard(), []);
   useEffect(() => generateBoard(), [boardCards]);
 
@@ -103,9 +112,26 @@ function TaskBoard() {
       });
   };
 
+  const handleAddPopupOpen = () => {
+    setMode(MODES.ADD);
+  };
+
+  const handleClose = () => {
+    setMode(MODES.NONE);
+  };
+
+  const handleTaskCreate = (params) => {
+    const attributes = TaskForm.attributesToSubmit(params);
+
+    return TasksRepository.create(attributes).then(({ data: { task } }) => {
+      loadColumnInitial(task.state);
+      handleClose();
+    });
+  };
+
   return (
     <>
-      <Fab className={styles.addButton} color="primary" aria-label="add">
+      <Fab className={styles.addButton} onClick={handleAddPopupOpen} color="primary" aria-label="add">
         <AddIcon />
       </Fab>
       <KanbanBoard
@@ -115,6 +141,7 @@ function TaskBoard() {
       >
         {board}
       </KanbanBoard>
+      {mode === MODES.ADD && <AddPopup onCardCreate={handleTaskCreate} onClose={handleClose} />}
     </>
   );
 }
