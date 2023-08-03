@@ -49,9 +49,6 @@ function TaskBoard() {
   const [mode, setMode] = useState(MODES.NONE);
   const [openedTaskId, setOpenedTaskId] = useState(null);
 
-  useEffect(() => loadBoard(), []);
-  useEffect(() => generateBoard(), [boardCards]);
-
   const loadColumn = (state, page, perPage) =>
     TasksRepository.index({
       q: { stateEq: state },
@@ -81,7 +78,7 @@ function TaskBoard() {
   };
 
   const generateBoard = () => {
-    const board = {
+    const newBoard = {
       columns: STATES.map(({ key, value }) => ({
         id: key,
         title: value,
@@ -90,12 +87,15 @@ function TaskBoard() {
       })),
     };
 
-    setBoard(board);
+    setBoard(newBoard);
   };
 
   const loadBoard = () => {
     STATES.map(({ key }) => loadColumnInitial(key));
   };
+
+  useEffect(() => loadBoard(), []);
+  useEffect(() => generateBoard(), [boardCards]);
 
   const handleCardDragEnd = (task, source, destination) => {
     const transition = task.transitions.find(({ to }) => destination.toColumnId === to);
@@ -112,7 +112,7 @@ function TaskBoard() {
         loadColumnInitial(source.toColumnId);
       })
       .catch((error) => {
-        alert(`Move failed! ${error.message}`);
+        alert(`Move failed! ${error.message}`); // eslint-disable-line no-alert
       });
   };
 

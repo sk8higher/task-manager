@@ -29,7 +29,7 @@ function AddPopup({ onClose, onCardCreate }) {
       setErrors(error || {});
 
       if (error instanceof Error) {
-        alert(`Creation Failed! Error: ${error.message}`);
+        alert(`Creation Failed! Error: ${error.message}`); // eslint-disable-line no-alert
       }
     });
   };
