@@ -41,6 +41,7 @@ export default {
       .get(url, {
         params: decamelize(params),
         paramsSerializer: (parameters) => qs.stringify(parameters, { encode: false }),
+        headers: headers(),
       })
       .then(camelize);
   },
