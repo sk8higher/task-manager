@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   validates :first_name, length: { minimum: 2 }, presence: true
   validates :last_name, length: { minimum: 2 }, presence: true
-  validates :email, presence: true, uniqueness: true, format: { with: /\A[^@\s]+@[^@\s]+\z/ }
+  validates :email, presence: true, uniqueness: true, format: { with: /\A\S+@.+\.\S+\z/ }
 
   def self.ransackable_attributes(_auth_object = nil)
     ['email', 'first_name', 'id', 'last_name', 'type']
