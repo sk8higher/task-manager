@@ -109,7 +109,7 @@ function TaskBoard() {
     })
       .then(() => {
         loadColumnInitial(destination.toColumnId);
-        loadColumnInitial(source.toColumnId);
+        loadColumnInitial(source.fromColumnId);
       })
       .catch((error) => {
         alert(`Move failed! ${error.message}`); // eslint-disable-line no-alert
