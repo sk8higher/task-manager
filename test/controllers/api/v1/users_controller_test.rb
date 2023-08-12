@@ -7,7 +7,7 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
   end
 
   test 'should get show' do
-    user = create :user
+    user = create(:user)
     get :show, params: { id: user.id, format: :json }
     assert_response :success
   end
