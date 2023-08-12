@@ -6,6 +6,8 @@ import TextField from '@material-ui/core/TextField';
 
 import UserSelect from 'components/UserSelect';
 
+import TaskPresenter from 'presenters/TaskPresenter';
+
 import useStyles from './useStyles';
 
 function Form({ errors, onChange, task }) {
@@ -18,7 +20,7 @@ function Form({ errors, onChange, task }) {
     <form className={styles.root}>
       <UserSelect
         label="Author"
-        value={task.author}
+        value={TaskPresenter.taskAuthor(task)}
         onChange={handleChangeSelect('author')}
         isDisabled
         isRequired
@@ -27,7 +29,7 @@ function Form({ errors, onChange, task }) {
       />
       <UserSelect
         label="Assignee"
-        value={task.assignee}
+        value={TaskPresenter.taskAssignee(task)}
         onChange={handleChangeSelect('assignee')}
         isDisabled
         isRequired
@@ -38,7 +40,7 @@ function Form({ errors, onChange, task }) {
         error={has('name', errors)}
         helperText={errors.name}
         onChange={handleChangeTextField('name')}
-        value={task.name}
+        value={TaskPresenter.taskName(task)}
         label="Name"
         required
         margin="dense"
@@ -47,7 +49,7 @@ function Form({ errors, onChange, task }) {
         error={has('description', errors)}
         helperText={errors.description}
         onChange={handleChangeTextField('description')}
-        value={task.description}
+        value={TaskPresenter.taskDescription(task)}
         label="Description"
         required
         multiline
