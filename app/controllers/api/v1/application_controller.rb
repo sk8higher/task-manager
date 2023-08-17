@@ -1,5 +1,5 @@
 class Api::V1::ApplicationController < Api::ApplicationController
-  RANSACK_DEFAULT_SORT = 'id ASC'
+  RANSACK_DEFAULT_SORT = 'id DESC'
 
   def build_meta(collection)
     {
@@ -12,7 +12,10 @@ class Api::V1::ApplicationController < Api::ApplicationController
   end
 
   def ransack_params
-    params.to_unsafe_h.fetch(:q, { s: RANSACK_DEFAULT_SORT })
+    q_params = params.to_unsafe_h.fetch(:q, {})
+    sort_param = q_params[:s] || RANSACK_DEFAULT_SORT
+
+    q_params.merge({ s: sort_param })
   end
 
   def page
