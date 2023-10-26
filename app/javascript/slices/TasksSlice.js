@@ -22,7 +22,7 @@ const tasksSlice = createSlice({
   reducers: {
     loadColumnSuccess(state, { payload }) {
       const { items, meta, columnId } = payload;
-      const column = state.board.columns.find(propEq('id', columnId));
+      const column = state.board.columns.find(propEq(columnId, 'id'));
 
       state.board = changeColumn(state.board, column, {
         cards: items,
@@ -46,37 +46,44 @@ const tasksSlice = createSlice({
   },
 });
 
-const { loadColumnSuccess, loadColumnMoreSuccess } = tasksSlice.actions;
+export const { loadColumnSuccess, loadColumnMoreSuccess } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
 
 export const useTasksActions = () => {
   const dispatch = useDispatch();
 
-  const loadColumn = (state, page, perPage) =>
+  const loadColumn = (state, page = 1, perPage = 10) =>
     TasksRepository.index({
-      q: { stateEq: state },
+      q: { stateEq: state, s: 'id DESC' },
       page,
       perPage,
-    });
-
-  const loadColumnInitial = (state, page = 1, perPage = 10) => {
-    loadColumn(state, page, perPage).then(({ data }) => {
+    }).then(({ data }) => {
       dispatch(loadColumnSuccess({ ...data, columnId: state }));
     });
-  };
 
-  const loadColumnMore = (state, page = 1, perPage = 10) => {
-    loadColumn(state, page, perPage).then(({ data }) => {
+  const loadColumnMore = (state, page = 1, perPage = 10) =>
+    TasksRepository.index({
+      q: { stateEq: state, s: 'id DESC' },
+      page,
+      perPage,
+    }).then(({ data }) => {
       dispatch(loadColumnMoreSuccess({ ...data, columnId: state }));
     });
-  };
 
-  const loadBoard = () => STATES.map(({ key }) => loadColumn(key));
+  const createTask = (attributes) => TasksRepository.create(attributes);
+  const destroyTask = (id) => TasksRepository.destroy(id);
+  const updateTask = (id, attributes) => TasksRepository.update(id, attributes);
+  const reloadCard = (id, stateEvent) => TasksRepository.update(id, stateEvent);
+  const handleCardLoad = (id) => TasksRepository.show(id).then(({ data: { task } }) => task);
 
   return {
-    loadBoard,
-    loadColumnInitial,
+    loadColumn,
     loadColumnMore,
+    destroyTask,
+    updateTask,
+    createTask,
+    reloadCard,
+    handleCardLoad,
   };
 };
