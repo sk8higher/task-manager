@@ -19,7 +19,7 @@ const MODES = {
 };
 
 function TaskBoard() {
-  const { board, loadBoard } = useTasks();
+  const { board, loadBoard, loadColumnMore, createNewTask, removeTask, changeTask, moveCard, loadTask } = useTasks();
   const [mode, setMode] = useState(MODES.NONE);
   const [openedTaskId, setOpenedTaskId] = useState(null);
   const styles = useStyles();
@@ -42,12 +42,11 @@ function TaskBoard() {
     setOpenedTaskId(null);
   };
 
-  const loadColumnMore = () => {};
-  const handleCardDragEnd = () => {};
-  const handleTaskCreate = () => {};
-  const handleTaskLoad = () => {};
-  const handleTaskUpdate = () => {};
-  const handleTaskDestroy = () => {};
+  const handleCardDragEnd = (task, source, destination) => moveCard(task, source, destination);
+  const handleTaskCreate = (params) => createNewTask(params, handleClose);
+  const handleTaskLoad = (id) => loadTask(id);
+  const handleTaskUpdate = (task) => changeTask(task, handleClose);
+  const handleTaskDestroy = (task) => removeTask(task, handleClose);
 
   return (
     <>
@@ -64,10 +63,10 @@ function TaskBoard() {
         {board}
       </KanbanBoard>
 
-      {mode === MODES.ADD && <AddPopup onCreateCard={handleTaskCreate} onClose={handleClose} />}
+      {mode === MODES.ADD && <AddPopup onCardCreate={handleTaskCreate} onClose={handleClose} />}
       {mode === MODES.EDIT && (
         <EditPopup
-          onLoadCard={handleTaskLoad}
+          onCardLoad={handleTaskLoad}
           onCardDestroy={handleTaskDestroy}
           onCardUpdate={handleTaskUpdate}
           onClose={handleClose}
