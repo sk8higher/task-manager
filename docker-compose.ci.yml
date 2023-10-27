@@ -11,5 +11,5 @@ services:
       - COVERAGE
       - RAILS_ENV
       - DATABASE_HOST=db
-      - DSTABASE_USERNAME=postgres
+      - DATABASE_USERNAME=postgres
     command: sh -c "bundle exec rails webpacker:install && bundle exec rails db:create db:migrate && bundle exec rake test"
