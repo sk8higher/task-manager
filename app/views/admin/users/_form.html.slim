@@ -1,4 +1,4 @@
-= simple_form_for user, as: :user, url: admin_user_path do |f|
+= simple_form_for user, as: :user, url: admin_users_path do |f|
   h4= text
   p
     = f.input :first_name
@@ -8,4 +8,4 @@
     = f.input :type, as: :select, collection: ['Admin', 'Manager', 'Developer']
   p
     = f.button :submit, "Confirm", class: 'mdl-button--colored'
-    = f.button :submit, "Back", formaction: admin_users_url, formmethod: "get"
+    = f.button :submit, "Back", formaction: admin_users_path, formmethod: "get"
