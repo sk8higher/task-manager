@@ -62,6 +62,7 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
   gem 'simplecov', '~> 0.22.0'
+  gem 'simplecov-lcov', '~> 0.7.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
