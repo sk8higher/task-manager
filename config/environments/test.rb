@@ -1,3 +1,5 @@
+require 'active_record'
+require 'bullet'
 require 'active_support/core_ext/integer/time'
 
 # The test environment is used exclusively to run your application's
@@ -7,9 +9,9 @@ require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
   config.after_initialize do
-    Bullet.enable        = true
+    Bullet.enable = true
     Bullet.bullet_logger = true
-    Bullet.raise         = true # raise an error if n+1 query occurs
+    Bullet.raise = true # raise an error if n+1 query occurs
   end
 
   # Settings specified here will take precedence over those in config/application.rb.
