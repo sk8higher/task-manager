@@ -1,3 +1,5 @@
+require 'active_record'
+require 'bullet'
 require 'simplecov'
 
 SimpleCov.start('rails') do
