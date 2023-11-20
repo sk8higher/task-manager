@@ -34,6 +34,7 @@ gem 'active_model_serializers'
 gem 'js-routes'
 
 gem 'rollbar'
+gem 'newrelic_rpm'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
