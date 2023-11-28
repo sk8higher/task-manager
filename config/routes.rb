@@ -10,6 +10,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users
+    get 'passwords/reset', to: 'password_resets#show'
+    post 'passwords/reset', to: 'password_resets#create'
+    get 'passwords/reset/edit', to: 'password_resets#edit'
+    post 'passwords/reset/edit', to: 'password_resets#update'
   end
 
   namespace :api do
