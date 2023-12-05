@@ -13,7 +13,7 @@ class Web::PasswordResetsController < Web::ApplicationController
   def edit
     @user = User.find_by(password_reset_token: params[:token])
 
-    redirect_to new_session_path, alert: 'Your reset token has expired. Please try again.' unless @user.password_token_valid?
+    redirect_to new_session_path, alert: 'Your reset token has expired. Please try again.' unless @user&.password_token_valid?
   end
 
   def update
