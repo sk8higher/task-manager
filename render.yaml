@@ -11,6 +11,7 @@ services:
     name: task_manager
     runtime: ruby
     plan: free
+    region: frankfurt
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
