@@ -1,7 +1,7 @@
-require "test_helper"
+require 'test_helper'
 
 class PasswordMailerTest < ActionMailer::TestCase
-  test "reset" do
+  test 'reset' do
     user = create(:user)
     token = user.generate_password_token!
     params = { user: user, token: token }
@@ -13,7 +13,7 @@ class PasswordMailerTest < ActionMailer::TestCase
 
     assert_equal ['noreply@taskmanager.com'], email.from
     assert_equal [user.email], email.to
-    assert_equal "Change your password", email.subject
-    assert email.body.to_s.include?("someone requested a reset of your password")
+    assert_equal 'Change your password', email.subject
+    assert email.body.to_s.include?('someone requested a reset of your password')
   end
 end

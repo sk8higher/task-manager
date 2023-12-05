@@ -17,11 +17,11 @@ class User < ApplicationRecord
     self.password_reset_token_expire = Time.now.utc
     save!
 
-    self.password_reset_token
+    password_reset_token
   end
 
   def password_token_valid?
-    (self.password_reset_token_expire + 24.hours) > Time.now.utc
+    (password_reset_token_expire + 24.hours) > Time.now.utc
   end
 
   def reset_password!(password_params)

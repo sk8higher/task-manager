@@ -7,13 +7,13 @@ class Web::PasswordResetsController < Web::ApplicationController
       PasswordMailer.with(user: @user, token: token).reset.deliver_now
     end
 
-    redirect_to new_session_path, notice: 'If an account associated with this email was found, we have sent a link to reset password.'
+    redirect_to(new_session_path, notice: 'If an account associated with this email was found, we have sent a link to reset password.')
   end
 
   def edit
     @user = User.find_by(password_reset_token: params[:token])
 
-    redirect_to new_session_path, alert: 'Your reset token has expired. Please try again.' unless @user&.password_token_valid?
+    redirect_to(new_session_path, alert: 'Your reset token has expired. Please try again.') unless @user&.password_token_valid?
   end
 
   def update
@@ -21,9 +21,9 @@ class Web::PasswordResetsController < Web::ApplicationController
 
     if @user.password_token_valid?
       @user.reset_password!(password_params)
-      redirect_to new_session_path, notice: 'Your password was reset successfully.'
+      redirect_to(new_session_path, notice: 'Your password was reset successfully.')
     else
-      redirect_to new_session_path, alert: 'Your token has expired. Please try again.'
+      redirect_to(new_session_path, alert: 'Your token has expired. Please try again.')
     end
   end
 
