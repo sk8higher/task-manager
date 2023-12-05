@@ -11,4 +11,30 @@ class User < ApplicationRecord
   def self.ransackable_attributes(_auth_object = nil)
     ['email', 'first_name', 'id', 'last_name', 'type']
   end
+
+  def generate_password_token!
+    self.password_reset_token = generate_token
+    self.password_reset_token_expire = Time.now.utc
+    save!
+
+    self.password_reset_token
+  end
+
+  def password_token_valid?
+    (self.password_reset_token_expire + 24.hours) > Time.now.utc
+  end
+
+  def reset_password!(password_params)
+    self.password_reset_token = nil
+    self.password = password_params[:password]
+    self.password_confirmation = password_params[:password_confirmation]
+
+    save!
+  end
+
+  private
+
+  def generate_token
+    SecureRandom.hex(20)
+  end
 end
