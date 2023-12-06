@@ -11,7 +11,7 @@ class UserMailerTest < ActionMailer::TestCase
       email.deliver_now
     end
 
-    assert_equal ['noreply@taskmanager.com'], email.from
+    assert_equal ['taskmanagerdualboot@gmail.com'], email.from
     assert_equal [user.email], email.to
     assert_equal 'New Task Created', email.subject
     assert email.body.to_s.include?("Task #{task.id} was created")
@@ -27,7 +27,7 @@ class UserMailerTest < ActionMailer::TestCase
       email.deliver_now
     end
 
-    assert_equal ['noreply@taskmanager.com'], email.from
+    assert_equal ['taskmanagerdualboot@gmail.com'], email.from
     assert_equal [user.email], email.to
     assert_equal 'Task Was Updated', email.subject
     assert email.body.to_s.include?("Task #{task.id} was updated")
@@ -43,7 +43,7 @@ class UserMailerTest < ActionMailer::TestCase
       email.deliver_now
     end
 
-    assert_equal ['noreply@taskmanager.com'], email.from
+    assert_equal ['taskmanagerdualboot@gmail.com'], email.from
     assert_equal [user.email], email.to
     assert_equal 'Task Was Destroyed', email.subject
     assert email.body.to_s.include?("Task #{task.id} was destroyed")

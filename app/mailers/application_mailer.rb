@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'noreply@taskmanager.com'
+  default from: 'taskmanagerdualboot@gmail.com'
   layout 'mailer'
 end

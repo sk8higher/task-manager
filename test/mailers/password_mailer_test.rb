@@ -11,7 +11,7 @@ class PasswordMailerTest < ActionMailer::TestCase
       email.deliver_now
     end
 
-    assert_equal ['noreply@taskmanager.com'], email.from
+    assert_equal ['taskmanagerdualboot@gmail.com'], email.from
     assert_equal [user.email], email.to
     assert_equal 'Change your password', email.subject
     assert email.body.to_s.include?('someone requested a reset of your password')
