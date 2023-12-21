@@ -1,7 +1,7 @@
 class PasswordMailer < ApplicationMailer
   def reset
     @user = params[:user]
-    @token = @user.generate_password_token!
+    @token = PasswordResetsService.generate_password_token!(@user)
 
     mail(to: @user.email, subject: 'Change your password')
   end
