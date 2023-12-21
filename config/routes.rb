@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   mount LetterOpenerWeb::Engine, at: "letter_opener" if Rails.env.development?
   root :to => 'web/boards#show'
 
@@ -7,11 +6,7 @@ Rails.application.routes.draw do
     resource :board, only: :show
     resource :session, only: [:new, :create, :destroy]
     resource :developers, only: [:new, :create]
-
-    get '/password/reset', to: 'password_resets#new'
-    post '/password/reset', to: 'password_resets#create'
-    get '/password/reset/edit', to: 'password_resets#edit'
-    post '/password/reset/edit', to: 'password_resets#update'
+    resource :password_resets, only: [:new, :create, :edit, :update]
   end
 
   namespace :admin do
