@@ -3,7 +3,7 @@ module PasswordResetsService
     def generate_password_token!(user)
       user.update!({
                      password_reset_token: generate_token,
-                     password_reset_token_expires_at: Time.now.utc
+                     password_reset_token_expires_at: Time.now.utc,
                    })
 
       user.password_reset_token
@@ -13,7 +13,7 @@ module PasswordResetsService
       (user&.password_reset_token_expires_at + 24.hours) > Time.now.utc
     end
 
-    def reset_password!(user, password_params)
+    def change_password!(user, password_params)
       user.update!({
                      password_reset_token: nil,
                      password: password_params[:password],
