@@ -3,7 +3,7 @@ require 'test_helper'
 class Web::PasswordResetsControllerTest < ActionController::TestCase
   setup do
     @user = create(:user)
-    @token = @user.generate_password_token!
+    @token = PasswordResetsService.generate_password_token!(@user)
   end
 
   test 'should get new' do
@@ -12,7 +12,11 @@ class Web::PasswordResetsControllerTest < ActionController::TestCase
   end
 
   test 'should post create' do
-    post :create, params: { user: { email: @user.email } }
+    attrs = { email: @user.email }
+
+    assert_emails 1 do
+      post :create, params: { password_reset_form: attrs }
+    end
     assert_response :redirect
   end
 
@@ -22,9 +26,21 @@ class Web::PasswordResetsControllerTest < ActionController::TestCase
   end
 
   test 'should post update' do
-    new_pass_user = build(:user)
+    new_pass = generate(:string)
 
-    post :update, params: { user: { password: new_pass_user.password, password_confirmation: new_pass_user.password }, token: @token }
+    attrs = { email: @user.email }
+
+    post :create, params: { password_reset_form: attrs }
+
+    @token = @user.reload.password_reset_token
+    new_attrs = {
+      password: new_pass,
+      password_confirmation: new_pass,
+    }
+
+    post :update, params: { password_set_form: new_attrs, token: @token }
+
     assert_response :redirect
+    assert_not_equal @user.password_digest, @user.reload.password_digest
   end
 end
