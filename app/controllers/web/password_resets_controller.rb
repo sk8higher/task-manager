@@ -17,7 +17,6 @@ class Web::PasswordResetsController < Web::ApplicationController
   end
 
   def edit
-    debugger
     @new_password = PasswordSetForm.new
 
     redirect_to(new_session_path, alert: 'Your reset token has expired. Please try again.') unless PasswordResetsService.password_token_valid?(user)
