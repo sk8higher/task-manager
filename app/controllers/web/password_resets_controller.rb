@@ -23,12 +23,10 @@ class Web::PasswordResetsController < Web::ApplicationController
   def update
     @user = User.find_by(password_reset_token: params[:token])
 
-    if PasswordResetsService.password_token_valid?(@user)
-      PasswordResetsService.reset_password!(@user, password_params)
-      redirect_to(new_session_path, notice: 'Your password was reset successfully.')
-    else
-      redirect_to(new_session_path, alert: 'Your token has expired. Please try again.')
-    end
+    return redirect_to(new_session_path, alert: 'Your token has expired. Please try again.') unless @user && PasswordResetsService.password_token_valid?(@user)
+
+    PasswordResetsService.change_password!(@user, password_params)
+    redirect_to(new_session_path, notice: 'Your password was reset successfully.')
   end
 
   private
