@@ -3,7 +3,7 @@ require 'test_helper'
 class PasswordMailerTest < ActionMailer::TestCase
   test 'reset' do
     user = create(:user)
-    token = user.generate_password_token!
+    token = PasswordResetsService.generate_password_token!(user)
     params = { user: user, token: token }
     email = PasswordMailer.with(params).reset
 
