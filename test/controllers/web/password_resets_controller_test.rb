@@ -36,9 +36,10 @@ class Web::PasswordResetsControllerTest < ActionController::TestCase
     new_attrs = {
       password: new_pass,
       password_confirmation: new_pass,
+      token: @token,
     }
 
-    post :update, params: { password_set_form: new_attrs, token: @token }
+    post :update, params: { password_set_form: new_attrs }
 
     assert_response :redirect
     assert_not_equal @user.password_digest, @user.reload.password_digest
