@@ -9,9 +9,7 @@ module PasswordResetsService
       user.password_reset_token
     end
 
-    def password_token_valid?(user)
-      user && user.password_reset_token_expires_at > Time.now.utc
-    end
+
 
     def change_password!(user, password)
       user.update!({

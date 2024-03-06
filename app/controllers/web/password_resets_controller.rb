@@ -19,14 +19,14 @@ class Web::PasswordResetsController < Web::ApplicationController
   def edit
     @password_set_form = PasswordSetForm.new(token: params[:token])
 
-    redirect_to(new_session_path, alert: "Your reset token has expired. Please try again.") unless PasswordResetsService.password_token_valid?(user)
+    redirect_to(new_session_path, alert: "Your reset token has expired. Please try again.") unless @password_set_form.password_token_valid?
   end
 
   def update
     @password_set_form = PasswordSetForm.new(new_password_params)
     user = @password_set_form.user
 
-    return redirect_to(new_session_path, alert: "Your token has expired. Please try again.") unless PasswordResetsService.password_token_valid?(user)
+    redirect_to(new_session_path, alert: "Your reset token has expired. Please try again.") unless @password_set_form.password_token_valid?
 
     PasswordResetsService.change_password!(user, @password_set_form.password)
     redirect_to(new_session_path, notice: "Your password was reset successfully.")
@@ -39,10 +39,6 @@ class Web::PasswordResetsController < Web::ApplicationController
   end
 
   def new_password_params
-    params.require(:password_set_form).permit(:password, :password_confirmation)
-  end
-
-  def user
-    @user ||= User.find_by_password_reset_token(params[:token])
+    params.require(:password_set_form).permit(:password, :password_confirmation, :token)
   end
 end

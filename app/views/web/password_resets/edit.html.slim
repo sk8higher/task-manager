@@ -1,6 +1,7 @@
 h2 Reset your password
 
-= simple_form_for @new_password, method: :patch, url: password_resets_path(token: params[:token]) do |f|
+= simple_form_for @password_set_form , method: :patch, url: password_resets_path do |f|
   = f.input :password
   = f.input :password_confirmation
+  = f.hidden_field :token, value: params[:token]
   = f.button :submit, 'Reset password'
