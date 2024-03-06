@@ -9,8 +9,6 @@ module PasswordResetsService
       user.password_reset_token
     end
 
-
-
     def change_password!(user, password)
       user.update!({
                      password_reset_token: nil,
