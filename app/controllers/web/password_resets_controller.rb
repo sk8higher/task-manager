@@ -2,14 +2,14 @@ class Web::PasswordResetsController < Web::ApplicationController
   skip_before_action :authenticate_user!
 
   def new
-    @reset = PasswordResetForm.new
+    @password_reset_form = PasswordResetForm.new
   end
 
   def create
-    @reset = PasswordResetForm.new(reset_params)
-    return render(:new) if @reset.invalid?
+    @password_reset_form = PasswordResetForm.new(reset_params)
+    return render(:new) if @password_reset_form.invalid?
 
-    user = @reset.user
+    user = @password_reset_form.user
     token = PasswordResetsService.generate_password_token!(user)
 
     PasswordMailer.with(user: user, token: token).reset.deliver_now
@@ -17,17 +17,18 @@ class Web::PasswordResetsController < Web::ApplicationController
   end
 
   def edit
-    @new_password = PasswordSetForm.new
+    @password_set_form = PasswordSetForm.new(token: params[:token])
 
     redirect_to(new_session_path, alert: "Your reset token has expired. Please try again.") unless PasswordResetsService.password_token_valid?(user)
   end
 
   def update
-    @new_password = PasswordSetForm.new(new_password_params)
+    @password_set_form = PasswordSetForm.new(new_password_params)
+    user = @password_set_form.user
 
     return redirect_to(new_session_path, alert: "Your token has expired. Please try again.") unless PasswordResetsService.password_token_valid?(user)
 
-    PasswordResetsService.change_password!(user, @new_password.password)
+    PasswordResetsService.change_password!(user, @password_set_form.password)
     redirect_to(new_session_path, notice: "Your password was reset successfully.")
   end
 
