@@ -1,23 +1,23 @@
-require "active_record"
-require "bullet"
-require "simplecov"
-require "sidekiq/testing"
+require 'active_record'
+require 'bullet'
+require 'simplecov'
+require 'sidekiq/testing'
 
-SimpleCov.start("rails") do
-  require "simplecov-lcov"
+SimpleCov.start('rails') do
+  require 'simplecov-lcov'
 
   formatter SimpleCov::Formatter::LcovFormatter
 
   SimpleCov::Formatter::LcovFormatter.config do |c|
     c.report_with_single_file = true
-    c.output_directory = "coverage"
+    c.output_directory = 'coverage'
   end
 
-  add_filter ["version.rb", "initializer.rb"]
+  add_filter ['version.rb', 'initializer.rb']
 end
 
-require_relative "../config/environment"
-require "rails/test_help"
+require_relative '../config/environment'
+require 'rails/test_help'
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
