@@ -1,7 +1,4 @@
-class SendTaskCreateNotificationJob < ApplicationJob
-  sidekiq_options queue: :mailers
-  sidekiq_throttle_as :mailer
-
+class Tasks::SendTaskCreateNotificationJob < Tasks::ApplicationJob
   def perform(task_id)
     task = Task.find_by(id: task_id)
     return if task.blank?

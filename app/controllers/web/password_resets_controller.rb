@@ -12,7 +12,7 @@ class Web::PasswordResetsController < Web::ApplicationController
     user = @password_reset_form.user
     PasswordResetsService.generate_password_token!(user)
 
-    SendPasswordResetMailJob.perform_async(user.id)
+    Passwords::SendPasswordResetMailJob.perform_async(user.id)
 
     redirect_to(new_session_path, notice: 'If an account associated with this email was found, we have sent a link to reset password.')
   end
