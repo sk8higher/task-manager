@@ -17,6 +17,7 @@ gem 'state_machines-activerecord'
 gem 'sidekiq'
 gem 'sidekiq-failures'
 gem 'sidekiq-throttled'
+gem 'sidekiq-unique-jobs'
 
 gem 'slim-rails'
 

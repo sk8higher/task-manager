@@ -265,6 +265,10 @@ GEM
       concurrent-ruby (>= 1.2.0)
       redis-prescription (~> 2.2)
       sidekiq (>= 6.5)
+    sidekiq-unique-jobs (8.0.10)
+      concurrent-ruby (~> 1.0, >= 1.0.5)
+      sidekiq (>= 7.0.0, < 8.0.0)
+      thor (>= 1.0, < 3.0)
     simple_form (5.2.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -359,6 +363,7 @@ DEPENDENCIES
   sidekiq
   sidekiq-failures
   sidekiq-throttled
+  sidekiq-unique-jobs
   simple_form
   simplecov (~> 0.22.0)
   simplecov-lcov (~> 0.7.0)
