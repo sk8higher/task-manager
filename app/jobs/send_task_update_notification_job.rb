@@ -1,4 +1,4 @@
-class Tasks::SendTaskUpdateNotificationJob < Tasks::ApplicationJob
+class SendTaskUpdateNotificationJob < MailerJob
   sidekiq_options lock: :until_and_while_executing, on_conflict: { client: :log, server: :reject }
 
   def perform(task_id)

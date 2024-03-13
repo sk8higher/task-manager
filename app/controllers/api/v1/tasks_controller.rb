@@ -18,7 +18,7 @@ class Api::V1::TasksController < Api::V1::ApplicationController
     task = current_user.my_tasks.new(task_params)
 
     if task.save
-      Tasks::SendTaskCreateNotificationJob.perform_async(task.id)
+      SendTaskCreateNotificationJob.perform_async(task.id)
     end
 
     respond_with(task, serializer: TaskSerializer, location: nil)
@@ -28,7 +28,7 @@ class Api::V1::TasksController < Api::V1::ApplicationController
     task = Task.find(params[:id])
 
     if task.update(task_params)
-      Tasks::SendTaskUpdateNotificationJob.perform_async(task.id)
+      SendTaskUpdateNotificationJob.perform_async(task.id)
     end
 
     respond_with(task, serializer: TaskSerializer)
@@ -38,7 +38,7 @@ class Api::V1::TasksController < Api::V1::ApplicationController
     task = Task.find(params[:id])
 
     if task.destroy
-      Tasks::SendTaskDestroyNotificationJob.perform_async(task.id)
+      SendTaskDestroyNotificationJob.perform_async(task.id)
     end
 
     respond_with(task)

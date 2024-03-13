@@ -1,4 +1,4 @@
-class Tasks::SendTaskDestroyNotificationJob < Tasks::ApplicationJob
+class SendTaskDestroyNotificationJob < MailerJob
   def perform(task_id)
     task = Task.find_by(id: task_id)
     return if task.blank?
