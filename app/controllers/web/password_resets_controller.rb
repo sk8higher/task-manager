@@ -10,9 +10,10 @@ class Web::PasswordResetsController < Web::ApplicationController
     return render(:new) if @password_reset_form.invalid?
 
     user = @password_reset_form.user
-    token = PasswordResetsService.generate_password_token!(user)
+    PasswordResetsService.generate_password_token!(user)
 
-    PasswordMailer.with(user: user, token: token).reset.deliver_now
+    SendPasswordResetMailJob.perform_async(user.id)
+
     redirect_to(new_session_path, notice: 'If an account associated with this email was found, we have sent a link to reset password.')
   end
 

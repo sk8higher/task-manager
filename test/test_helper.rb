@@ -1,6 +1,7 @@
 require 'active_record'
 require 'bullet'
 require 'simplecov'
+require 'sidekiq/testing'
 
 SimpleCov.start('rails') do
   require 'simplecov-lcov'
@@ -30,3 +31,5 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+Sidekiq::Testing.inline!
