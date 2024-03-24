@@ -95,4 +95,3 @@ ImageUpload.propTypes = {
 };
 
 export default ImageUpload;
-
