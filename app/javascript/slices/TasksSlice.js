@@ -76,6 +76,8 @@ export const useTasksActions = () => {
   const updateTask = (id, attributes) => TasksRepository.update(id, attributes);
   const reloadCard = (id, stateEvent) => TasksRepository.update(id, stateEvent);
   const handleCardLoad = (id) => TasksRepository.show(id).then(({ data: { task } }) => task);
+  const attachTaskImage = (attachmentParams) => TasksRepository.attachImage(attachmentParams);
+  const removeTaskImage = (id) => TasksRepository.removeImage(id);
 
   return {
     loadColumn,
@@ -85,5 +87,7 @@ export const useTasksActions = () => {
     createTask,
     reloadCard,
     handleCardLoad,
+    attachTaskImage,
+    removeTaskImage,
   };
 };

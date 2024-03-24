@@ -22,6 +22,7 @@ export default new PropTypesPresenter(
     assignee: UserPresenter.shape(),
     state: PropTypes.string,
     transitions: PropTypes.array,
+    imageUrl: PropTypes.string,
   },
   {
     taskName(task) {

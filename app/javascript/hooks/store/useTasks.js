@@ -4,7 +4,17 @@ import TaskPresenter, { STATES } from 'presenters/TaskPresenter';
 import TaskForm from 'forms/TaskForm';
 
 const useTasks = () => {
-  const { loadColumn, loadColumnMore, createTask, updateTask, destroyTask, reloadCard, handleCardLoad } = useTasksActions();
+  const {
+    loadColumn,
+    loadColumnMore,
+    createTask,
+    updateTask,
+    destroyTask,
+    reloadCard,
+    handleCardLoad,
+    attachTaskImage,
+    removeTaskImage,
+  } = useTasksActions();
 
   const board = useSelector((state) => state.TasksSlice.board);
   const loadBoard = () => STATES.map(({ key }) => loadColumn(key));
@@ -62,6 +72,8 @@ const useTasks = () => {
     changeTask,
     moveCard,
     loadTask,
+    attachTaskImage,
+    removeTaskImage,
   };
 };
 
