@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { ReactCrop, makeAspectCrop } from 'react-image-crop';
+import ReactCrop, { makeAspectCrop } from 'react-image-crop';
 import { isNil, path } from 'ramda';
 
 import Button from '@material-ui/core/Button';
 
 import useStyles from './useStyles';
-import 'react-image-crop/dist/ReactCrop.css';
+// import 'react-image-crop/dist/ReactCrop.css';
 
 function ImageUpload({ onUpload }) {
   const styles = useStyles();

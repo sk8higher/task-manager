@@ -48,5 +48,9 @@ export default new PropTypesPresenter(
     taskTransitions(task) {
       return this.transitions(task);
     },
+
+    imageUrl(task) {
+      return this.imageUrl(task);
+    },
   },
 );
